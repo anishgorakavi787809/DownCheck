@@ -7,26 +7,32 @@ import sys
 gmail = smtplib.SMTP("smtp-mail.outlook.com",587)
 gmail.starttls()
 em = EmailMessage()
-gmail.login(os.environ["GMAIL_EMAIL"],os.environ["GMAIL_PASSWORD"])
+gmail.login("xxx@xmail.xxd","###########")
 def sendme(sub,text:str):
-    em["from"] = "gorakavI@outlook.com"
+    em["from"] = "xxx@xmail.xxd"
     em["to"] = "anish.gorakavi@gmail.com"
     em["subject"] = sub
     em.set_content(text)
-    gmail.sendmail("gorakavi@outlook.com","anish.gorakavi@gmail.com",em.as_string())
+    gmail.sendmail("xxx@xmail.xxd","anish.gorakavi@gmail.com",em.as_string())
+
+argli = sys.argv
+argli.pop(0)
+print(argli)
 
 def check_sites(los:list):
     down_sites = []
     for i in los:
         try:
-            req.get(i)
+            r = req.get(i)
+            if r.status_code > 399:
+                down_sites.append(i)
         except:
             down_sites.append(i)
     return down_sites
 # Server check
 
 #LOGGING!
-los = ["http://localhost:5000"]
+los = argli
 res = ""
 for i in check_sites(los):
     res += i + "\n"
